@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../store';
 import { useForm, Controller } from 'react-hook-form';
-import { ContestCategory, ContestStatus, UserRole } from '../types';
+import { ContestCategory, ContestStatus, UserRole } from '../script';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import Swal from 'sweetalert2';
 import DatePicker from 'react-datepicker';

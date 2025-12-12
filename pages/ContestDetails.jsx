@@ -4,7 +4,7 @@ import { useApp } from '../store';
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
 import { Clock, DollarSign, Trophy, User, CheckCircle, AlertCircle } from 'lucide-react';
-import { UserRole } from '../types';
+import { UserRole } from '../script';
 
 export const ContestDetails = () => {
   const { id } = useParams<{ id: string }>();

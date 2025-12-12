@@ -1,19 +1,26 @@
-import React from 'react';
-import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { useApp, AppProvider } from './store';
-import { Navbar, Footer, NotFound } from './components/Layout';
-import { Home, AllContests, Leaderboard } from './pages/PublicPages';
-import { Login, Register } from './pages/AuthPages';
-import { ContestDetails } from './pages/ContestDetails';
-import { UserDashboard, CreatorDashboard, AdminDashboard } from './pages/Dashboards';
-import { UserRole } from './types';
+import React from "react";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useApp, AppProvider } from "./store";
+import { Navbar, Footer, NotFound } from "./components/Layout";
+import { Home, AllContests, Leaderboard } from "./pages/PublicPages";
+import { Login, Register } from "./pages/AuthPages";
+import { ContestDetails } from "./pages/ContestDetails";
+import {
+  UserDashboard,
+  CreatorDashboard,
+  AdminDashboard,
+} from "./pages/Dashboards";
+import { UserRole } from "./script";
 
 // Protected Route Component
 interface ProtectedRouteProps {
   allowedRoles?: UserRole[];
 }
 
-const ProtectedRoute = ({ children, allowedRoles }: React.PropsWithChildren<ProtectedRouteProps>) => {
+const ProtectedRoute = ({
+  children,
+  allowedRoles,
+}: React.PropsWithChildren<ProtectedRouteProps>) => {
   const { currentUser } = useApp();
   const location = useLocation();
 
@@ -39,31 +46,45 @@ const AppRoutes = () => {
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          
-          <Route path="/contest/:id" element={
-            <ProtectedRoute>
-              <ContestDetails />
-            </ProtectedRoute>
-          } />
+
+          <Route
+            path="/contest/:id"
+            element={
+              <ProtectedRoute>
+                <ContestDetails />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Dashboards */}
-          <Route path="/dashboard/user" element={
-            <ProtectedRoute allowedRoles={[UserRole.USER, UserRole.CREATOR, UserRole.ADMIN]}>
-              <UserDashboard />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/dashboard/creator" element={
-            <ProtectedRoute allowedRoles={[UserRole.CREATOR, UserRole.ADMIN]}>
-              <CreatorDashboard />
-            </ProtectedRoute>
-          } />
-          
-          <Route path="/dashboard/admin" element={
-            <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/dashboard/user"
+            element={
+              <ProtectedRoute
+                allowedRoles={[UserRole.USER, UserRole.CREATOR, UserRole.ADMIN]}
+              >
+                <UserDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/creator"
+            element={
+              <ProtectedRoute allowedRoles={[UserRole.CREATOR, UserRole.ADMIN]}>
+                <CreatorDashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/dashboard/admin"
+            element={
+              <ProtectedRoute allowedRoles={[UserRole.ADMIN]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -76,7 +97,7 @@ const AppRoutes = () => {
 const App = () => {
   return (
     <AppProvider>
-        <AppRoutes />
+      <AppRoutes />
     </AppProvider>
   );
 };
